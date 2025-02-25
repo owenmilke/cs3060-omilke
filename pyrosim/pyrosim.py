@@ -50,13 +50,17 @@ def Get_Touch_Sensor_Value_For_Link(linkName):
 
     pts = p.getContactPoints()
 
-    for pt in pts:
+    # I needed to place this loop into a try block because occasionally pts is None and the program crashes
+    try:
+        for pt in pts:
 
-        linkIndex = pt[4]
+            linkIndex = pt[4]
 
-        if ( linkIndex == desiredLinkIndex ):
+            if ( linkIndex == desiredLinkIndex ):
 
-            touchValue = 1.0
+                touchValue = 1.0
+    except TypeError:
+        pass
 
     return touchValue
 
