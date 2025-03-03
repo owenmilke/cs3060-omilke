@@ -56,7 +56,7 @@ class NEURON:
         return self.type == c.MOTOR_NEURON
     
     def Update_Hidden_Or_Motor_Neuron(self):
-        self.Set_Value(math.pi/4.0)
+        self.Set_Value(0.0)
 
     def Print(self):
 
