@@ -7,7 +7,7 @@ import constants as c
 import time
 
 class SIMULATION:
-    def __init__(self, directOrGUI):
+    def __init__(self, directOrGUI, solutionID):
         self.directOrGUI = directOrGUI
         if directOrGUI == "DIRECT":
             self.physicsClient = p.connect(p.DIRECT) 
@@ -17,7 +17,7 @@ class SIMULATION:
         p.configureDebugVisualizer(p.COV_ENABLE_GUI, 0)
         p.setGravity(0, 0, -9.8, self.physicsClient)
         self.world = WORLD()
-        self.robot = ROBOT()
+        self.robot = ROBOT(solutionID)
 
     def Run(self):
         for i in range(c.num_iterations):
