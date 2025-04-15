@@ -57,8 +57,9 @@ class PARALLEL_HILL_CLIMBER:
                 self.parents[i] = self.children[i]
 
     def Print(self):
-        for key in self.parents.keys():
-            print("\nParent fitness:", self.parents[key].fitness, "| Child fitness:", self.children[key].fitness)
+        # for key in self.parents.keys():
+        #     print("\nParent fitness:", self.parents[key].fitness, "| Child fitness:", self.children[key].fitness)
+        pass
     
     def Show_Best(self):
         best_index = 0
@@ -69,7 +70,7 @@ class PARALLEL_HILL_CLIMBER:
                 best_index = i
         
         self.best_id = self.parents[best_index].myID
-        print(f"\nThe best robot was #{self.best_id} with fitness = {max_fitness}")
+        print(f"\nBest Robot: #{self.best_id}")
         
         # First run the GUI simulation to generate new sensor data
         self.parents[best_index].Start_Simulation("GUI")
@@ -79,7 +80,6 @@ class PARALLEL_HILL_CLIMBER:
         sensor_file = f"sensor_values_{self.best_id}.npy"
         if os.path.exists(sensor_file):
             self.best_sensor_data = np.load(sensor_file)
-            print(f"Best robot's sensor data shape: {self.best_sensor_data.shape}")
             np.save("best_sensor_values.npy", self.best_sensor_data)
             os.remove(sensor_file)  # Clean up temporary file
         

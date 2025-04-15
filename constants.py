@@ -1,13 +1,13 @@
 import numpy as np
 
-num_iterations = 1000
+num_iterations = 10000
 
-num_generations = 10
+num_generations = 50
 populationSize = 10
 
 numSensorNeurons = 11
 numMotorNeurons = 10
-motorJointRange = 0.2
+motorJointRange = 0.75
 
 time_step = [1/30, 1/60, 1/240]
 

@@ -26,13 +26,6 @@ class SIMULATION:
             self.robot.Think()
             self.robot.Act(i)
             if self.directOrGUI == "GUI":
-                for link in self.robot.sensors:
-                    contact_points = p.getContactPoints(
-                        bodyA=self.robot.robotId,
-                        linkIndexA=pyrosim.linkNamesToIndices[link]
-                    )
-                    if contact_points:
-                        print(f"{link} is touching ground!")
                 time.sleep(c.time_step[1])
 
     def Get_Fitness(self):
