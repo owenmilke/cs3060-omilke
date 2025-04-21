@@ -9,3 +9,5 @@ phc.Evolve()
 phc.Show_Best()
 
 print("\nSimulation complete.")
+
+del phc

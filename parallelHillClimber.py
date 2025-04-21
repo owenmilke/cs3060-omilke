@@ -15,6 +15,10 @@ class PARALLEL_HILL_CLIMBER:
             self.nextAvailableID += 1
         self.best_sensor_data = None
         self.best_id = None
+        # Initialize fitness matrices for both variants
+        self.fitness_matrix_A = np.zeros((c.populationSize, c.num_generations))
+        self.fitness_matrix_B = np.zeros((c.populationSize, c.num_generations))
+        self.current_generation = 0
 
     def Clean_Files(self):
         os.system("rm -f brain*.nndf 2>/dev/null")
@@ -22,12 +26,24 @@ class PARALLEL_HILL_CLIMBER:
         os.system("rm -f sensor_values_*.npy 2>/dev/null")
         os.system("rm -f world.sdf 2>/dev/null")
         os.system("rm -f body.urdf 2>/dev/null")
+        os.system("rm -f best_sensor_values.npy 2>/dev/null")
 
     def Evolve(self):
         self.Evaluate(self.parents)
         for currentGeneration in range(c.num_generations):
+            self.current_generation = currentGeneration
             self.Evolve_For_One_Generation()
+        self.Save_Fitness_History()
         self.Clean_Intermediate_Files()
+
+    def Save_Fitness_History(self):
+        # Save both variants to text and .npy files
+        if c.numSensorNeurons == 11 and c.numMotorNeurons == 10:  # Variant A
+            np.savetxt("A_fitness_history.txt", self.fitness_matrix_A)
+            np.save("A_fitness_history.npy", self.fitness_matrix_A)
+        elif c.numSensorNeurons == 7 and c.numMotorNeurons == 6:  # Variant B
+            np.savetxt("B_fitness_history.txt", self.fitness_matrix_B)
+            np.save("B_fitness_history.npy", self.fitness_matrix_B)
 
     def Clean_Intermediate_Files(self):
         os.system("rm -f brain*.nndf 2>/dev/null")
@@ -101,6 +117,11 @@ class PARALLEL_HILL_CLIMBER:
             solutions[i].Start_Simulation("DIRECT")
         for i in range(len(solutions)):
             solutions[i].Wait_For_Simulation_To_End()
+            # Store fitness in the appropriate matrix based on current variant
+            if c.numSensorNeurons == 11 and c.numMotorNeurons == 10:  # Variant A
+                self.fitness_matrix_A[i, self.current_generation] = solutions[i].fitness
+            elif c.numSensorNeurons == 7 and c.numMotorNeurons == 6:  # Variant B
+                self.fitness_matrix_B[i, self.current_generation] = solutions[i].fitness
 
     def __del__(self):
         # Final cleanup when the object is destroyed
