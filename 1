@@ -1,5 +1,4 @@
 pybullet build time: Jan 22 2025 01:35:07
-Robot 381 - Fitness: 900006.01 (Forward: 5.85, Lateral Penalty: 1.12, Fall Penalty: -90000.00)
 Version = 4.1 Metal - 89.4
 Vendor = Apple
 Renderer = Apple M4 Pro
@@ -19,3 +18,21 @@ destroy semaphore
 semaphore destroyed
 destroy main semaphore
 main semaphore destroyed
+Traceback (most recent call last):
+  File "/Users/owenmilke/Desktop/UVM 2025/Evolutionary Robotics/cs3060-omilke/simulate.py", line 11, in <module>
+    simulation.Run()
+  File "/Users/owenmilke/Desktop/UVM 2025/Evolutionary Robotics/cs3060-omilke/simulation.py", line 25, in Run
+    self.robot.Sense(i)
+  File "/Users/owenmilke/Desktop/UVM 2025/Evolutionary Robotics/cs3060-omilke/robot.py", line 28, in Sense
+    self.sensors[sensor].Get_Value(i)
+  File "/Users/owenmilke/Desktop/UVM 2025/Evolutionary Robotics/cs3060-omilke/sensor.py", line 14, in Get_Value
+    self.sensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/owenmilke/Desktop/UVM 2025/Evolutionary Robotics/cs3060-omilke/pyrosim/pyrosim.py", line 51, in Get_Touch_Sensor_Value_For_Link
+    pts = p.getContactPoints()
+          ^^^^^^^^^^^^^^^^^^^^
+pybullet.error: Not connected to physics server.
+Exception ignored in: <function SIMULATION.__del__ at 0x1072976a0>
+Traceback (most recent call last):
+  File "/Users/owenmilke/Desktop/UVM 2025/Evolutionary Robotics/cs3060-omilke/simulation.py", line 35, in __del__
+pybullet.error: Not connected to physics server.
